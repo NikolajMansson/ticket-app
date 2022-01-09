@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
@@ -5,7 +6,8 @@ class Addticket extends Component
 {
     state = {
         title: "",
-        comment: "", 
+        comment: "",
+        open: true, 
         author: "",
     }
 
@@ -15,8 +17,21 @@ class Addticket extends Component
         });
     }
 
-    saveTicket = (e) => {
+    saveTicket = async (e) => {
         e.preventDefault();
+
+        const res  = await axios.post('http://104.248.24.248/api/ticket', this.state);
+        if(res.status === 201){
+            this.setState({
+                title: "",
+                comment: "", 
+                open: true,
+                author: "",
+            }
+            );
+        }    
+        
+        
     }
 
     render(){

@@ -4,13 +4,25 @@ import {Link} from 'react-router-dom';
 
 class Editticket extends Component
 {
-    state = {
-        id: null,
+    constructor(props) {
+    super(props);
+    this.state = { id: null,
         title: "",
         comment: "",
         open: true, 
         author: "",
-    }
+        checkbox1: true };
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+  }
+
+
+    handleCheckboxChange(e) {
+      const element = e.target;
+      this.setState({
+          checkbox1: element.checked,
+          open: element.checked
+      });
+  }
 
     handleInput = (e) => {
         this.setState({
@@ -19,6 +31,7 @@ class Editticket extends Component
     }
 
     async componentDidMount(){
+        
         const ticket_id = this.props.match.params.id;
         const res = await axios.get(`http://104.248.24.248/api/ticket/${ticket_id}`);
         if(res.status === 200){
@@ -28,6 +41,7 @@ class Editticket extends Component
                 comment: res.data.data.comment,
                 open: res.data.data.open, 
                 author: res.data.data.author,
+                checkbox1: res.data.data.open
             })
 
         }
@@ -35,12 +49,9 @@ class Editticket extends Component
 
     updateTicket = async (e) => {
         e.preventDefault();
-
         document.getElementById('updatebtn').disabled = true;
         document.getElementById('updatebtn').innerText = "Updating";
         const ticket_id = this.props.match.params.id;
-        console.log('ticket id');
-        console.log(ticket_id);
         const res  = await axios.put(`http://104.248.24.248/api/ticket/${ticket_id}`, this.state);
         if(res.status === 200){
             document.getElementById('updatebtn').disabled = false;
@@ -59,23 +70,30 @@ class Editticket extends Component
                                     <Link to={'/'} className="btn btn-primary btn-sm float-end">BACK</Link>
                             </div>
                             <div className='card-body'>
+                            
+                            
                                 <form onSubmit={this.updateTicket}>
                                     <div className="form-group mb-3">
                                         <label>Ticket Title</label>
-                                        <input type="text" name="title" onChange={this.handleInput} value={this.state.title} className="form-controll" />
+                                        <input type="text" name="title" onChange={this.handleInput} value={this.state.title} className="form-control" />
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Ticket Comment</label>
-                                        <input type="text" name="comment" onChange={this.handleInput} value={this.state.comment} className="form-controll" />
+                                        <input type="text" name="comment" onChange={this.handleInput} value={this.state.comment} className="form-control" />
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Author</label>
-                                        <input type="text" name="author" onChange={this.handleInput} value={this.state.author} className="form-controll" />
+                                        <input type="text" name="author" onChange={this.handleInput} value={this.state.author} className="form-control" />
                                     </div>
+                                    
                                     <div className="form-group mb-3">
                                         <button type="submit" id="updatebtn" className="btn btn-primary">Update ticket</button>
                                     </div>
-                                </form>
+                                    <div className="form-group form-check">
+                                        <input type="checkbox" className="form-check-input" name='checkbox1' id="exampleCheck1" checked={this.state.checkbox1} onChange={ this.handleCheckboxChange }/>
+                                        <label className="form-check-label">Open ticket</label>
+                                    </div>
+                                </form>      
                             </div>
                         </div>
                     </div>

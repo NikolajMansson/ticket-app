@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import swal from 'sweetalert';
+
 
 class Addticket extends Component
 {
@@ -22,6 +24,9 @@ class Addticket extends Component
 
         const res  = await axios.post('http://104.248.24.248/api/ticket', this.state);
         if(res.status === 201){
+
+            swal("Added a new ticket");
+
             this.setState({
                 title: "",
                 comment: "", 

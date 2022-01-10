@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import swal from 'sweetalert';
 
 class Editticket extends Component
 {
@@ -54,6 +55,7 @@ class Editticket extends Component
         const ticket_id = this.props.match.params.id;
         const res  = await axios.put(`http://104.248.24.248/api/ticket/${ticket_id}`, this.state);
         if(res.status === 200){
+            swal(`Updated ticket nr ${ticket_id}`);
             document.getElementById('updatebtn').disabled = false;
             document.getElementById('updatebtn').innerText = "Update ticket";
         }    

@@ -14,34 +14,25 @@ class Ticket extends Component
 
     async componentDidMount(){
         const res = await axios.get('http://104.248.24.248/api/tickets');
-        console.log(res);
-        if(res.status === 200){
-            console.log('Set state');
-            
+        if(res.status === 200){           
             this.setState({
                 tickets: res.data.data,
                 loading:false
             });
-            console.log('Set state on data');
-            console.log(res.data.data);
-
         }
     }
 
     deleteTicket = async (e, id) => {
-
         const deleteButton = e.currentTarget;
         deleteButton.innerText = "Deleting";
         const res = await axios.delete(`http://104.248.24.248/api/ticket/${id}`);
         if(res.status === 200)
         {
             deleteButton.closest("tr").remove();
-            console.log('Message deleted');
+
         }
     }
-
     render(){
-
         var ticket_HTML_TABLE = "";
         if(this.state.loading){
             ticket_HTML_TABLE = <tr><td colSpan="6"><h2><Loading/></h2></td></tr>;
@@ -86,7 +77,6 @@ class Ticket extends Component
                                         {ticket_HTML_TABLE}
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
@@ -94,7 +84,6 @@ class Ticket extends Component
             </div>
         )
     }
-
 }
 
 export default Ticket;

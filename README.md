@@ -11,7 +11,7 @@ $ git clone https://github.com/NikolajMansson/ticket-app.git
 
 This clones the repo
 
-cd into the new folder and installs the required dependencies by command
+cd into the new folder and install the required dependencies by command
 
 $ npm install
 

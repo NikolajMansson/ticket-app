@@ -11,11 +11,10 @@ $ git clone {the url to the GitHub repo}
 
 This clones the repo
 
-cd into the new folder and type
+cd into the new folder and installs the required dependencies by command
 
 $ npm install
 
-This installs the required dependencies
 
-To run the React project.
+Finally, to run the React project, type
 $ npm start

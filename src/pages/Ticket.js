@@ -28,6 +28,18 @@ class Ticket extends Component
         }
     }
 
+    deleteTicket = async (e, id) => {
+
+        const deleteButton = e.currentTarget;
+        deleteButton.innerText = "Deleting";
+        const res = await axios.delete(`http://104.248.24.248/api/ticket/${id}`);
+        if(res.status === 200)
+        {
+            deleteButton.closest("tr").remove();
+            console.log('Message deleted');
+        }
+    }
+
     render(){
 
         var ticket_HTML_TABLE = "";
@@ -43,7 +55,7 @@ class Ticket extends Component
                         <td>{item.author}</td>
                         <td><Link to={`view-comment/${item.id}`} className="btn btn-link btn-sm">View comment</Link></td>
                         <td><Link to={`edit-ticket/${item.id}`} className="btn btn-success btn-sm">Edit</Link></td>
-                        <td><button type="button" className="btn btn-danger btn-sm">Delete</button></td>
+                        <td><button type="button" onClick={(e) => this.deleteTicket(e, item.id)} className="btn btn-danger btn-sm">Delete</button></td>
                     </tr>
                 )
             });

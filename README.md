@@ -7,7 +7,7 @@ On this client you can add new tickets, edit tickets, delete tickets and open/cl
 
 Open your terminal and then type
 
-$ git clone {the url to the GitHub repo}
+$ git clone https://github.com/NikolajMansson/ticket-app.git
 
 This clones the repo
 
